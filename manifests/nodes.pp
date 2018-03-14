@@ -1,8 +1,8 @@
-node 'wiki'
-{
-  class { 'linux': }
-  class { 'mediawiki': }
-}
+#node 'wiki'
+#{
+#  class { 'linux': }
+#  class { 'mediawiki': }
+#}
 
 
 node 'wikitest'
@@ -72,6 +72,14 @@ class linux
     ensure => 'installed'
   }
 
+  $ntpservice = $osfamily ?
+  {
+    'redhat' => 'ntpd',
+    'debian' => 'ntp',
+    default => 'ntp',
+  }
+
+  file
   $ntpservice = $osfamily ?
   {
     'redhat' => 'ntpd',
